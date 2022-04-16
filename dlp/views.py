@@ -26,7 +26,7 @@ def list_dir(request):
     connection = paramiko.Transport(host, 22)
 
     try:
-        connection.connect(None, username=username, pkey=pkey)
+        connection.connect(None, username='ozon', pkey=pkey)
     except paramiko.AuthenticationException as error:
         return render(request, 'registration/game404.html')
 
@@ -69,7 +69,7 @@ def read_file(request):
     ssh = paramiko.SSHClient()
     pkey = paramiko.RSAKey(filename=pkey_path)
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(host, username=username, key_filename=pkey_path)
+    ssh.connect(host, username='ozon', key_filename=pkey_path)
 
     ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(f'python3 /usr/bin/dlp.py {file_name}')
     print(ssh_stdout)
